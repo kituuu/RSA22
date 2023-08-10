@@ -5,7 +5,8 @@ import Postcards from "@/components/Postcards";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import getLoginStatus from "@/utilites/getLoginStatus";
-import Cookies from "js-cookie";
+
+import { useCookies } from "react-cookie";
 interface postCards {
   dishName: string;
   dishId: string;
@@ -23,7 +24,7 @@ interface profileI {
 }
 const ProfilePage = () => {
   const router = useRouter();
-
+const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
   const checkLogin = async () => {
     const response = await getLoginStatus();
     if (!response) {
@@ -49,7 +50,7 @@ const ProfilePage = () => {
   const getProfile = async () => {
     let authtoken;
     try {
-      authtoken = Cookies.get("auth-token");
+      authtoken = cookie["auth-token"];
     } catch (err) {
       console.log(err);
     }
@@ -95,7 +96,7 @@ const ProfilePage = () => {
 
   const uploadProfilePhoto = async () => {
     try {
-      const token = Cookies.get("auth-token");
+      const token = cookie["auth-token"];
       const data = {
         profilePhoto,
       };

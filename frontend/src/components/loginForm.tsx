@@ -3,12 +3,12 @@ import React from "react";
 import { postLogin } from "@/api/postLogin";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
-import Cookies from 'js-cookie';
+import { useCookies } from "react-cookie";
 
 
 const LoginForm = () => {
   // const router = useRouter ();
-
+  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
@@ -16,7 +16,7 @@ const LoginForm = () => {
   const login = async () => {
     try {
       const token = await postLogin(username,password)
-      Cookies.set('auth-token', token);
+      setCookie('auth-token', token);
       toast.success("emu auth")
       router.push('/user')
       router.refresh();

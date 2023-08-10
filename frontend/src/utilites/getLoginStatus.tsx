@@ -1,10 +1,12 @@
 "use client";
 import { getDataWithAuthToken } from "@/api/fetchDataWithAuthToken";
-import Cookies from "js-cookie";
+
+import { useCookies } from "react-cookie";
 
 export default async function getLoginStatus() {
   try {
-    const authtoken = Cookies.get("auth-token");
+    const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+    const authtoken = cookie["auth-token"];
     let isLoggedIn = false;
 
     if (authtoken) {
