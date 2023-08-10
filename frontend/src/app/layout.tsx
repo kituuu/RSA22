@@ -1,15 +1,15 @@
-
+"use client"
 import Navbar from '@/components/Navbar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
+import { CookiesProvider } from 'react-cookie'
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Recipe Sharing App',
-  description: 'Created by: Simple Samosa',
-}
+// export const metadata: Metadata = {
+//   title: 'Recipe Sharing App',
+//   description: 'Created by: Simple Samosa',
+// }
 
 export default function RootLayout({
   children,
@@ -19,8 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        
         <Navbar key={1}/>
+        <CookiesProvider/>
         {children}
       </body>
     </html>

@@ -4,7 +4,7 @@ import Postcards from "@/components/Postcards";
 import { useRouter } from "next/navigation";
 import getLoginStatus from "@/utilites/getLoginStatus";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
 interface postCards {
   id: string;
   dishName: string;
@@ -30,7 +30,7 @@ const PostsPage = () => {
   };
 
   checkLogin();
-
+  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
   let [profile, setProfile] = useState<profileI>({
     userId: "",
     name: "",
@@ -43,7 +43,7 @@ const PostsPage = () => {
   const getProfile = async () => {
     let authtoken;
     try {
-      authtoken = Cookies.get("auth-token");
+      authtoken = cookie["auth-token"];
     } catch (err) {
       console.log(err);
     }

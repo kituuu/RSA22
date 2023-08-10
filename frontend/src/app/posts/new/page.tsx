@@ -3,9 +3,11 @@ import React, { ChangeEvent } from "react";
 import axios from "axios";
 import getLoginStatus from "@/utilites/getLoginStatus";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
+
 const NewPostPage = () => {
   const router = useRouter();
+  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
 
   const checkLogin = async () => {
     const response = await getLoginStatus();
@@ -24,7 +26,7 @@ const NewPostPage = () => {
 
   const upload = async () => {
     try {
-      const token = Cookies.get("auth-token");
+      const token = cookie["auth-token"];
       console.log("token is", token);
       const formData = new FormData();
       formData.append("file", dishPic);

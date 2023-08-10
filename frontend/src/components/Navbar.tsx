@@ -6,11 +6,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import LoginModal from "./loginModal";
 import getLoginStatus from "@/utilites/getLoginStatus";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
   const [loginStatus, setLoginStatus] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [cookie,setCookie,removeCookie] = useCookies(["auth-token"]);
   const router = useRouter();
 
   const LoginStatus = async () => {
@@ -81,12 +82,12 @@ const Navbar = () => {
           </div>
           <div className="order-2 md:order-3 ">
             <div className="px-4 py-2 bg-blue-950 hover:bg-blue-800 text-white rounded-xl flex items-center gap-2">
-              {loginStatus ? (
+              {(cookie['auth-token']) && (
                 <Link
                   href={"/"}
                   onClick={() => {
                     try {
-                      Cookies.remove("auth-token");
+                      removeCookie("auth-token");
                       LoginStatus();
                       router.push("/");
                     } catch (e) {
@@ -96,7 +97,9 @@ const Navbar = () => {
                 >
                   LOGOUT
                 </Link>
-              ) : (
+              )}
+              {!(cookie['auth-token']) &&
+               (
                 <LoginModal />
               )}
             </div>

@@ -6,8 +6,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { postLogin } from "@/api/postLogin";
 import { postSignup } from "@/api/postSignup";
 import Link from "next/link";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
 const LoginModal = () => {
+  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
   const [modalShown, setModalShown] = React.useState("login");
   const [isOpen, setOpen] = React.useState(false);
   const router = useRouter();
@@ -31,7 +32,7 @@ const LoginModal = () => {
           event.target.username.value,
           event.target.password.value
         );
-        Cookies.set("auth-token", token);
+        setCookie("auth-token", token);
         handleCloseClick();
         toast.success("emu auth");
         router.push("/user");
@@ -77,7 +78,7 @@ const LoginModal = () => {
           e.target.username.value,
           e.target.password.value
         );
-        Cookies.set("auth-token", token);
+        setCookie("auth-token", token);
         handleCloseClick();
         router.push("/createProfile");
       } catch (error) {

@@ -9,6 +9,8 @@ import { dish } from "@/utilites/interface";
 import axios from "axios";
 import Link from "next/link";
 
+import { useCookies } from "react-cookie";
+
 // interface postCards{
 //   id: string,
 //   dishName:string,
@@ -19,10 +21,12 @@ import Link from "next/link";
 // }
 
 const HomePage = () => {
+  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
   const [posts, setPosts] = useState<dish[]>([]);
   const [searchTerm, setSearchTerm]: [string, Function] = useState("");
   const [isSearch, setIsSearch]: [boolean, Function] = useState(false);
   const [searchDishes, setSearchDishes] = useState<dish[]>([]);
+  console.log(cookie["auth-token"]);
   const search = () => {
     setIsSearch(true);
     let temp: dish[] = [];
