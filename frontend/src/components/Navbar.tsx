@@ -15,7 +15,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const LoginStatus = async () => {
-    const response = await getLoginStatus();
+    const response = await getLoginStatus(cookie['auth-token']);
     console.log(`response is ${response}`);
     response ? setLoginStatus(true) : setLoginStatus(false);
   };

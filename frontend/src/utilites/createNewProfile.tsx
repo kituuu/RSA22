@@ -2,12 +2,11 @@
 import { postData } from "@/api/postDatawithBody";
 import { useCookies } from "react-cookie";
 
-export async function createNewProfile(body: string) {
+export async function createNewProfile(body: string,authtoken:string) {
   try {
-    const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
-    const authtoken = cookie["auth-token"];
+    
     const response = await postData(
-      "http://127.0.0.1:8000/userProfile/create",
+      "http://localhost:8000/userProfile/create",
       authtoken,
       body
     );

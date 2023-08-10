@@ -26,7 +26,7 @@ const ProfilePage = () => {
   const router = useRouter();
 const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
   const checkLogin = async () => {
-    const response = await getLoginStatus();
+    const response = await getLoginStatus(cookie['auth-token']);
     if (!response) {
       router.push("/home");
     }

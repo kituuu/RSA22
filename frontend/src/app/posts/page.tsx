@@ -23,7 +23,7 @@ interface profileI {
 const PostsPage = () => {
   const router = useRouter();
   const checkLogin = async () => {
-    const response = await getLoginStatus();
+    const response = await getLoginStatus(cookie['auth-token']);
     if (!response) {
       router.push("/home");
     }

@@ -6,15 +6,15 @@ export async function postData(
   body: string
 ) {
   try {
+    console.log(token)
     const response = await axios.post(url, {
       headers: {
         Authorization: `Token ${token}`,
-        "Content-Type": "application/json",
       },
       body: body,
     });
     return response;
   } catch (error) {
-    console.log(error);
+    console.log("error");
   }
 }

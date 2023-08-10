@@ -4,11 +4,14 @@ import getLoginStatus from "@/utilites/getLoginStatus";
 import React from "react";
 import { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
 const CreateProfilePage = () => {
   const [name, setName] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [bio, setBio] = useState<string>();
   const [photo, setPhoto] = useState<File | null>();
+  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+    const authtoken = cookie["auth-token"];
   const router = useRouter();
   const onClickSubmit = async (event: any) => {
     event.preventDefault();
@@ -20,7 +23,8 @@ const CreateProfilePage = () => {
         emailId: event.target.email.value,
       };
       let body = JSON.stringify(data);
-      let response = await createNewProfile(body);
+      
+      let response = await createNewProfile(body,authtoken);
       router.push("/user");
     } catch (e) {
       console.log(e);
@@ -29,7 +33,7 @@ const CreateProfilePage = () => {
   const [loginStatus, setLoginStatus] = useState(false);
 
   const checkLogin = async () => {
-    const response = await getLoginStatus();
+    const response = await getLoginStatus(cookie['auth-token']);
     if (!response) {
       console.log("bullshit");
     }

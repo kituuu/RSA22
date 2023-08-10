@@ -3,10 +3,9 @@ import { getDataWithAuthToken } from "@/api/fetchDataWithAuthToken";
 
 import { useCookies } from "react-cookie";
 
-export default async function getLoginStatus() {
+export default async function getLoginStatus(authtoken:string) {
   try {
-    const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
-    const authtoken = cookie["auth-token"];
+    
     let isLoggedIn = false;
 
     if (authtoken) {
