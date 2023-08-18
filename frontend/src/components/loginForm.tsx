@@ -8,7 +8,7 @@ import { useCookies } from "react-cookie";
 
 const LoginForm = () => {
   // const router = useRouter ();
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
@@ -16,7 +16,7 @@ const LoginForm = () => {
   const login = async () => {
     try {
       const token = await postLogin(username,password)
-      setCookie('auth-token', token);
+      setCookie('Token', token);
       toast.success("emu auth")
       router.push('/user')
       router.refresh();

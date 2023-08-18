@@ -23,14 +23,14 @@ interface profileI {
 const PostsPage = () => {
   const router = useRouter();
   const checkLogin = async () => {
-    const response = await getLoginStatus(cookie['auth-token']);
+    const response = await getLoginStatus(cookie['Token']);
     if (!response) {
       router.push("/home");
     }
   };
 
   checkLogin();
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   let [profile, setProfile] = useState<profileI>({
     userId: "",
     name: "",
@@ -43,7 +43,7 @@ const PostsPage = () => {
   const getProfile = async () => {
     let authtoken;
     try {
-      authtoken = cookie["auth-token"];
+      authtoken = cookie["Token"];
     } catch (err) {
       console.log(err);
     }

@@ -21,12 +21,12 @@ import { useCookies } from "react-cookie";
 // }
 
 const HomePage = () => {
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   const [posts, setPosts] = useState<dish[]>([]);
   const [searchTerm, setSearchTerm]: [string, Function] = useState("");
   const [isSearch, setIsSearch]: [boolean, Function] = useState(false);
   const [searchDishes, setSearchDishes] = useState<dish[]>([]);
-  console.log(cookie["auth-token"]);
+  console.log(cookie["Token"]);
   const search = () => {
     setIsSearch(true);
     let temp: dish[] = [];

@@ -10,8 +10,8 @@ const CreateProfilePage = () => {
   const [email, setEmail] = useState<string>();
   const [bio, setBio] = useState<string>();
   const [photo, setPhoto] = useState<File | null>();
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
-    const authtoken = cookie["auth-token"];
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
+  const authtoken = cookie["Token"];
   const router = useRouter();
   const onClickSubmit = async (event: any) => {
     event.preventDefault();
@@ -22,6 +22,7 @@ const CreateProfilePage = () => {
         bio: event.target.bio.value,
         emailId: event.target.email.value,
       };
+      console.log("data:",data)
       let body = JSON.stringify(data);
       
       let response = await createNewProfile(body,authtoken);
@@ -33,7 +34,7 @@ const CreateProfilePage = () => {
   const [loginStatus, setLoginStatus] = useState(false);
 
   const checkLogin = async () => {
-    const response = await getLoginStatus(cookie['auth-token']);
+    const response = await getLoginStatus(cookie['Token']);
     if (!response) {
       console.log("bullshit");
     }
@@ -63,7 +64,7 @@ const CreateProfilePage = () => {
             <h1>Name</h1>
             <input
               type="text"
-              className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+              className="peer block min-h-[auto] w-full rounded border-2 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleInput7"
               placeholder="Name"
               name="name"
@@ -78,7 +79,7 @@ const CreateProfilePage = () => {
             <h1>Email id</h1>
             <input
               type="email"
-              className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+              className="peer block min-h-[auto] w-full rounded border-2 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleInput8"
               name="email"
             />
@@ -92,7 +93,7 @@ const CreateProfilePage = () => {
           <div className="relative mb-6" data-te-input-wrapper-init>
             <h1>Bio</h1>
             <textarea
-              className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+              className="peer block min-h-[auto] w-full rounded border-2 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleFormControlTextarea13"
               required
               name="bio"
@@ -108,7 +109,7 @@ const CreateProfilePage = () => {
             <h1>ProfilePhoto</h1>
             <input
               type="file"
-              className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+              className="peer block min-h-[auto] w-full rounded border-2 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
               id="exampleInput7"
               required
               onChange={handleFileChange}

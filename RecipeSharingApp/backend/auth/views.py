@@ -23,7 +23,10 @@ def login(request):
 
 @api_view(['POST'])
 def signup(request):
-    serializer=UserSerializer(data=request.data)
+    print(request.data)
+
+    
+    serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         try:
             user=User.objects.get(username=request.data['username'])
@@ -32,13 +35,16 @@ def signup(request):
             serializer.save()
             user=User.objects.get(username=request.data['username'])
             user.set_password(request.data['password'])
-            user.save()
+            user.save() 
             token=Token.objects.create(user=user)
             userId = request.data['username']
             user_0 = userProfile(userId=userId,name="",profilePhoto="pics/blank-profile-picture.png",emailId="",bio="")
             user_0.save()
+            print(token.key)
             return Response({"token":token.key,"user":serializer.data})
-    return Response("err",status=301)
+    else:
+        print("serializer not valid")
+        return Response("err",status=301)
     
 
 @api_view(['GET'])

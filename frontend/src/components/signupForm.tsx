@@ -6,14 +6,14 @@ import { useCookies } from "react-cookie";
 
 const SignupForm = () => {
   const router = useRouter();
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const signup = async () => {
     try {
       const token = await postSignup(username, password);
-      setCookie("auth-token", token);
+      setCookie("Token", token);
       router.push("/createProfile");
     } catch (error) {
       console.error(error);

@@ -7,10 +7,10 @@ import { useCookies } from "react-cookie";
 
 const NewPostPage = () => {
   const router = useRouter();
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
 
   const checkLogin = async () => {
-    const response = await getLoginStatus(cookie['auth-token']);
+    const response = await getLoginStatus(cookie['Token']);
     if (!response) {
       router.push("/home");
     }
@@ -26,7 +26,7 @@ const NewPostPage = () => {
 
   const upload = async () => {
     try {
-      const token = cookie["auth-token"];
+      const token = cookie["Token"];
       console.log("token is", token);
       const formData = new FormData();
       formData.append("file", dishPic);

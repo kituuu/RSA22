@@ -10,12 +10,12 @@ import { useCookies } from "react-cookie";
 const AddToCookBook = () => {
   
   const { postId } = useParams();
-  //   const token = sessionStorage.getItem("auth-token");
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  //   const token = sessionStorage.getItem("Token");
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   //   const token =  '8aa2bb9efacee868d83ac03960e12f164d300e51'
   const like = async () => {
     try {
-      const token = cookie["auth-token"];
+      const token = cookie["Token"];
       // const data = "";
 
       // const response = postLike(postId, data, token);
@@ -25,7 +25,7 @@ const AddToCookBook = () => {
   };
 
   // const getLikeStatus = async () => {
-  //   const token = sessionStorage.getItem("auth-token");
+  //   const token = sessionStorage.getItem("Token");
   //   try {
   //       const response = await axios.get(
   //           `http://127.0.0.1:8000/likes/getLikeStatus/${postId}`,

@@ -24,9 +24,9 @@ interface profileI {
 }
 const ProfilePage = () => {
   const router = useRouter();
-const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   const checkLogin = async () => {
-    const response = await getLoginStatus(cookie['auth-token']);
+    const response = await getLoginStatus(cookie['Token']);
     if (!response) {
       router.push("/home");
     }
@@ -50,7 +50,7 @@ const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
   const getProfile = async () => {
     let authtoken;
     try {
-      authtoken = cookie["auth-token"];
+      authtoken = cookie["Token"];
     } catch (err) {
       console.log(err);
     }
@@ -70,6 +70,16 @@ const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
         },
       }
     );
+    const user_data=response2.data.user_profile;
+    const profile_data = {
+      userId:user_data.userId,
+      name: user_data.name,
+      bio: user_data.bio,
+      emailId: user_data.emailId,
+      profilePhoto: user_data.profilePhoto,
+
+    }
+    setProfile(profile_data)
     let data2 = await response2.data;
     if (data2.user_profile.profilePhoto) {
       setProfilePhotoExists(true);
@@ -96,7 +106,7 @@ const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
 
   const uploadProfilePhoto = async () => {
     try {
-      const token = cookie["auth-token"];
+      const token = cookie["Token"];
       const data = {
         profilePhoto,
       };

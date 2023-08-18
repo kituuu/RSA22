@@ -8,7 +8,7 @@ import { postSignup } from "@/api/postSignup";
 import Link from "next/link";
 import { useCookies } from "react-cookie";
 const LoginModal = () => {
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   const [modalShown, setModalShown] = React.useState("login");
   const [isOpen, setOpen] = React.useState(false);
   const router = useRouter();
@@ -32,7 +32,7 @@ const LoginModal = () => {
           event.target.username.value,
           event.target.password.value
         );
-        setCookie("auth-token", token);
+        setCookie("Token", token);
         handleCloseClick();
         toast.success("emu auth");
         router.push("/user");
@@ -77,11 +77,15 @@ const LoginModal = () => {
         const token = await postSignup(
           e.target.username.value,
           e.target.password.value
-        );
-        setCookie("auth-token", token);
-        handleCloseClick();
-        router.push("/createProfile");
-      } catch (error) {
+          );
+          setCookie("Token", token);
+          handleCloseClick();
+          console.log("done")
+          router.push("/createProfile");
+          
+        } catch (error) {
+          console.log("error nigga")
+        console.log(e.target.password.value);
         console.error(error);
         toast.error("err");
       }
@@ -120,7 +124,7 @@ const LoginModal = () => {
 
   return (
     <div className="container">
-      3{" "}
+      {/* {" "} */}
       <Link href="#" onClick={() => setOpen(!isOpen)}>
         SIGN UP
       </Link>

@@ -6,14 +6,14 @@ import React from "react";
 import { useState, useEffect, ChangeEvent } from "react";
 import { useCookies } from "react-cookie";
 const EditProfilePage = () => {
-  const [cookie, setCookie, removeCookie] = useCookies(["auth-token"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["Token"]);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [photo, setPhoto] = useState<File | null>(null);
   const previousProfile = async () => {
     // let profile:profileI;
-    let authtoken = cookie["auth-token"];
+    let authtoken = cookie["Token"];
     let response1 = await axios.get(`http://127.0.0.1:8000/auth/test_token`, {
       headers: {
         accept: "application/json",
@@ -66,7 +66,7 @@ const EditProfilePage = () => {
         emailId: email,
       };
       let body = JSON.stringify(data);
-      let authtoken = cookie["auth-token"];
+      let authtoken = cookie["Token"];
       let response1 = await axios.put(
         `http://localhost:8000/userProfile/updateProfile`,
         {

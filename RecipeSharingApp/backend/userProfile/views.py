@@ -1,5 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import json
+
 
 from .serializers import userProfileSerializer
 from rest_framework import status
@@ -28,13 +30,19 @@ def getProfile(request, userId):
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def createProfile(request):
+    data_string = list(request.data.keys())[0]
+    json_data = json.loads(data_string)
+
+    why = json_data["name"]
+
+    
     try:
         userId = request.user.username
-
-        name = request.data["name"]
-        profilePhoto = request.data["profilePhoto"]
-        emailId = request.data["emailId"]
-        bio = request.data["bio"]
+        print(userId)
+        name = json_data["name"]
+        profilePhoto = json_data["profilePhoto"]
+        emailId = json_data["emailId"]
+        bio = json_data["bio"]
         profile = userProfile.objects.get(userId=userId)
         profile.name = name
         profile.profilePhoto =profilePhoto
@@ -44,7 +52,7 @@ def createProfile(request):
         response_data = {"message": "Profile Saved"}
         return Response(response_data, status=status.HTTP_200_OK)
     except Exception as e:
-        print(e)
+        print(f"create error:{e}")
         response_data = {"message": "Some error occured"}
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 

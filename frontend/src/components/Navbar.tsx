@@ -11,11 +11,11 @@ import { useCookies } from "react-cookie";
 const Navbar = () => {
   const [loginStatus, setLoginStatus] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [cookie,setCookie,removeCookie] = useCookies(["auth-token"]);
+  const [cookie,setCookie,removeCookie] = useCookies(["Token"]);
   const router = useRouter();
 
   const LoginStatus = async () => {
-    const response = await getLoginStatus(cookie['auth-token']);
+    const response = await getLoginStatus(cookie['Token']);
     console.log(`response is ${response}`);
     response ? setLoginStatus(true) : setLoginStatus(false);
   };
@@ -44,7 +44,7 @@ const Navbar = () => {
             {loginStatus ? (
               <ul className="flex font-semibold justify-between">
                 <li className="md:px-4 md:py-2 hover:text-black ">
-                  <Link href="/home">Home </Link>
+                  <Link href="/home">Home</Link>
                 </li>
                 <li className="md:px-4 md:py-2 hover:text-black">
                   <Link href="/user">Profile </Link>
@@ -59,7 +59,7 @@ const Navbar = () => {
             ) : (
               <ul className="flex font-semibold justify-between">
                 <li className="md:px-4 md:py-2 text-black ">
-                  <Link href="/home">Home </Link>
+                  <Link href="/home">Home</Link>
                 </li>
                 <li className="md:px-4 md:py-2 hover:text-black">
                   <Link href="#" onClick={handleAlert}>
@@ -82,12 +82,12 @@ const Navbar = () => {
           </div>
           <div className="order-2 md:order-3 ">
             <div className="px-4 py-2 bg-blue-950 hover:bg-blue-800 text-white rounded-xl flex items-center gap-2">
-              {(cookie['auth-token']) && (
+              {(cookie['Token']) && (
                 <Link
                   href={"/"}
                   onClick={() => {
                     try {
-                      removeCookie("auth-token");
+                      removeCookie("Token");
                       LoginStatus();
                       router.push("/");
                     } catch (e) {
@@ -98,7 +98,7 @@ const Navbar = () => {
                   LOGOUT
                 </Link>
               )}
-              {!(cookie['auth-token']) &&
+              {!(cookie['Token']) &&
                (
                 <LoginModal />
               )}
